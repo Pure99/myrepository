@@ -1,6 +1,6 @@
 <?php
 // результаты будем отправлять в формате XML
-header('ContentType: text/xml');
+header('Content-Type: text/xml');
 // сгенерировать заголовок XML
 echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 // создать элемент <response>

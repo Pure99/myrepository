@@ -1,6 +1,6 @@
 <?php
 // определить формат выходных данных как xml
-header('ContentType: text/xml');
+header('Content-Type: text/xml');
 // создать новый документ XML
 $dom = new DOMDocument();
 // создать корневой элемент <response>
@@ -16,7 +16,7 @@ $titleText = $dom->createTextNode('Building Reponsive Web Applications with AJAX
 $title->appendChild($titleText);
 // создать элемент isbn для элемента book
 $isbn = $dom->createElement('isbn');
-$isbnText = $dom->createTextNode('1904811825');
+$isbnText = $dom->createTextNode('1-904811-82-5');
 $isbn->appendChild($isbnText);
 // создать элемент <book>
 $book = $dom->createElement('book');
