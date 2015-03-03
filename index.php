@@ -10,25 +10,14 @@
 
 <body>
 
-    <table id="sf" style="width: 400px;" border="1" cellpadding="0" cellspacing="0">
-        <tr>
-            <td>
-                <select>
-                    <option value="">-- Выбрать --</option>
-                    <option value="">Все наименования</option>
-                    <option value="зеленый">зеленый</option>
-                    <option value="красный">красный</option>
-                </select>
-            </td>
-            <td>
-                <select>
-                    <option value="">-- Выбрать --</option>
-                    <option value="">Все наименования</option>
-                    <option value="да">да</option>
-                    <option value="нет">нет</option>
-                </select>
-            </td>
-        </tr>
+    <table class="example table-autosort table-autofilter table-autopage:10 table-stripeclass:alternate table-page-number:t1page table-page-count:t1pages table-filtered-rowcount:t1filtercount table-rowcount:t1allcount" style="width: 400px;" border="1" cellpadding="0" cellspacing="0">
+        <thead>
+		<tr>
+		<th class="table-sortable:numeric table-sortable"> ergerg</th>
+		<th class="table-filterable table-sortable:default table-sortable"> rgergrg</th>
+		</tr>
+	</thead>
+	<tbody>
         <tr>
             <td>зеленый 1</td>
             <td>да</td>
@@ -45,39 +34,12 @@
             <td>красный 2</td>
             <td>да</td>
         </tr>
+		</tbody>
     </table>
-    <input type="button" value="reset" class="res"/>
-    <p>Как можно сделать: если отфильтровать строки в одном из столбцов, как-то сохранить результат, а из оставшихся строк сделать выборку по другому столбцу </p>
-    <p>например, выбираем в первом столбце ЗЕЛЕНЫЙ, во втором ДА, и в результате остается одна строка - зеленый 1 да </p>
-    <table border="1" cellpadding="0" cellspacing="0" id="sf2" style="width: 400px;">
-        <tr>
-            <td>зеленый 1</td>
-            <td>да</td>
-        </tr>
-    </table>
-    <script>
-        window.onload = function() {
-            var tab = document.querySelector('#sf'),
-                tr = tab.querySelectorAll('tr:nth-child(n+2)'),
-                sel = tab.querySelectorAll('select'),
-                arr = [],
-                res = document.querySelector('.res');
-            Array.prototype.forEach.call(sel, function(a, b) {
-                arr[b] = a.value;
-                a.onchange = function() {
-                    arr[b] = a.value;
-                    a.options[0].selected = !0;
-                    Array.prototype.forEach.call(tr, function(a, b) {
-                        var c = Array.prototype.every.call(a.querySelectorAll("td"), function(a, b) {
-                            return RegExp(arr[b]).test(a.textContent)
-                        });
-                        a.style.display = c ? "" : "none"
-                    })
-                }
-            });
-           res.onclick =  function() {
-                for (var i=0; i<sel.length; i++)  {sel[i].onchange()}               }
-        }
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="table.js" >
+       
     </script>
 </body>
 
