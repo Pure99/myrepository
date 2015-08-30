@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>X-editable starter template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    
+
+    <!-- x-editable (bootstrap version) -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <link href="http://localhost/myrepository.git/ajax/livetableedit/assets/css/custom.css" rel="stylesheet" type="text/css">
+    <!-- main.js <script src="main.js"></script>-->
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <h1>X-editable starter template</h1>
+
+      <div>
+        <span>Username:</span>
+        <a href="#" id="username" data-type="text" data-placement="right" data-title="Enter username">superuser</a>
+      </div>
+      
+      <div>
+        <span>Status:</span>
+        <a href="#" id="status"></a>
+      </div>
+<table class= "table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+
+                                <th colspan="1" rowspan="1" style="width: 180px;" tabindex="0">Name</th>
+
+                                <th colspan="1" rowspan="1" style="width: 220px;" tabindex="0">Description</th>
+
+                                <th colspan="1" rowspan="1" style="width: 288px;" tabindex="0">Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+<?php 
+$db_host = 'localhost'; //имя MySQL-сервера
+$db_user = 'root'; // имя пользователя
+$db_pass = ''; // пароль
+$db_name = 'base'; // имя БАЗЫ
+// устанавливаем соединение с БД
+
+$connection = new mysqli($db_host, $db_user, $db_pass, $db_name);
+$connection->set_charset("utf8");
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+$result = $connection->query("select * from information");
+$i=0;
+while($row = $result->fetch_array()){
+						if($i%2==0) $class = 'even'; else $class = 'odd';
+							
+							echo'<tr class="'.$class.'">
+
+                                <td><span class= "xedit" id="'.$row['id'].'">'.$row['name'].'</span></td>
+
+                                <td>'.$row['details'].'</td>
+
+                                <td>'.$row['status'].'</td>
+                            </tr>';							
+						}
+						?>
+                        </tbody>
+                    </table>
+      
+    </div>
+<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script> 
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>  
+   <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.6/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+ 
+<script type="text/javascript">
+jQuery(document).ready(function() {  
+        $.fn.editable.defaults.mode = 'inline';
+        $('.xedit').editable();		
+		$(document).on('click','.editable-submit',function(){
+			var x = $(this).closest('td').children('span').attr('id');
+			var y = $('.input-sm').val();
+			var z = $(this).closest('td').children('span');
+			$.ajax({
+				url: "process.php?id="+x+"&data="+y,
+				type: 'GET',
+				success: function(s){
+					if(s == 'status'){
+					$(z).html(y);}
+					if(s == 'error') {
+					alert('Error Processing your Request!');}
+				},
+				error: function(e){
+					alert('Error Processing your Request!!');
+				}
+			});
+		});
+});
+</script>
+  </body>
+</html>
